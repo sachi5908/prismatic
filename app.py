@@ -50,8 +50,8 @@ def calculate():
         unadjusted_y = np.cumsum(np.insert(latitudes, 0, 0))
 
         # 3. Total correction = vector needed to close the traverse (opposite of the error)
-        total_correction_dep = -error_departure
-        total_correction_lat = -error_latitude
+        total_correction_dep = error_departure
+        total_correction_lat = error_latitude
 
         # 4. Fraction of total correction to apply at each station (Bowditch — cumulative length from A)
         cumulative_lengths = np.insert(np.cumsum(lengths), 0, 0)
@@ -128,4 +128,5 @@ def calculate():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+
     app.run(debug=True)
