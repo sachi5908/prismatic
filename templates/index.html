@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prismatic Compass Survey Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Prismatic Compass Survey Analyzer</h1>
+    </header>
+
+    <main class="container">
+        <nav class="tab-nav">
+            <button class="tab-link active" data-tab="tab-input">
+                <span class="icon">📝</span> Input & Results
+            </button>
+            <button class="tab-link" data-tab="tab-traverse">
+                <span class="icon">🗺️</span> Traverse Plot
+            </button>
+            <button class="tab-link" data-tab="tab-bowditch">
+                <span class="icon">📐</span> Bowditch Method
+            </button>
+        </nav>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-input">
+                <div class="input-grid">
+                    <section class="card" id="controls-card">
+                        <h2>1. Input Data</h2>
+                        <div class="input-group">
+                            <label for="segment-count">Number of Segments:</label>
+                            <input type="number" id="segment-count" value="4" min="2" max="20">
+                            <button id="generate-table-btn">Generate Table</button>
+                        </div>
+                        <div id="input-table-container"></div>
+                        <button id="calculate-btn" class="cta-button">Calculate & Draw Traverse</button>
+                        <div id="spinner" class="spinner" style="display: none;"></div>
+                    </section>
+                    
+                    <section class="card" id="results-card">
+                        <h2>2. Results</h2>
+                        <div class="error-info">
+                            <h3>Closing Error:</h3>
+                            <p><strong>Magnitude:</strong> <span id="error-magnitude">N/A</span> m</p>
+                            <p><strong>Bearing:</strong> <span id="error-bearing">N/A</span> ° WCB</p>
+                        </div>
+                        <h3>Adjusted Data Table</h3>
+                        <div class="table-wrapper">
+                            <table id="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Line</th><th>Original Len.</th><th>Original Brg.°</th>
+                                        <th>Lat Corr.</th><th>Dep Corr.</th><th>Adjusted Len.</th>
+                                        <th>Adjusted Brg.°</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-table-body"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab-traverse">
+                <section class="card plot-card">
+                    <div id="traverse-plot" class="plot-div"></div>
+                </section>
+            </div>
+
+            <div class="tab-pane" id="tab-bowditch">
+                <section class="card plot-card">
+                    <div id="bowditch-plot" class="plot-div"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
